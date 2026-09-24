@@ -1,0 +1,121 @@
+# Python bytecode and caches
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.pyre/
+.coverage
+htmlcov/
+
+# Python environments
+.venv/
+venv/
+env/
+ENV/
+
+# Local environment variables
+.env
+.env.*
+!.env.example
+
+# Editor and local tooling
+.idea/
+.vscode/
+.agents/
+.codex/
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs and runtime outputs
+*.log
+logs/
+output/
+tmp/
+temp/
+data/
+
+# Node / web build artifacts
+node_modules/
+dist/
+
+# Teleop recordings and generated captures
+sim2real/teleop/teleop_records/
+sim2real/teleop/*.npz
+sim2real/teleop/*.mp4
+sim2real/teleop/*.avi
+
+# MuJoCo / runtime artifacts
+*.core
+core
+core.*
+
+# Avoid accidentally committing nested virtualenvs/caches in app
+app/.venv/
+app/__pycache__/
+app/.pytest_cache/
+app/.mypy_cache/
+app/.ruff_cache/
+
+# Avoid committing nested repository metadata if app was initialized separately
+app/.git/
+
+# Training environment, datasets, and generated artifacts
+training/.git/
+training/.venv/
+training/__pycache__/
+training/.pytest_cache/
+training/.mypy_cache/
+training/.ruff_cache/
+training/.cache/
+training/*.egg-info/
+training/build/
+training/dist/
+training/outputs/
+training/wandb/
+training/artifacts/
+training/dataset/
+training/raw_dataset/
+training/memcache/
+training/memcache_new/
+training/*.out
+training/checkpoint*.pt
+training/motion.npy
+training/*.pkl
+training/*.csv
+training/scripts/*.png
+training/scripts/*.pt
+training/scripts/*.onnx
+training/scripts/*.json
+training/scripts/*.txt
+training/scripts/*.yaml
+training/scripts/file/
+training/scripts/plot/
+training/scripts/policies/
+training/scripts/exports/
+training/scripts/outputs_play/
+training/scripts/outputs_eval/
+training/scripts/videos/
+
+# New deployment exports are large; force-add release checkpoints intentionally.
+sim2real/assets/ckpts/*/
+!sim2real/assets/ckpts/G1TRACKING-03-16_14-15_0315.2/
+!sim2real/assets/ckpts/G1TRACKING-03-16_14-15_0315.2/**
+!sim2real/assets/ckpts/G1TRACKING-06-07_11-15/
+!sim2real/assets/ckpts/G1TRACKING-06-07_11-15/**
+
+# External GitHub dependencies cloned locally for setup.
+# Recreate them from the commands in SETUP.md instead of committing them here.
+teleop_ws/
+/baselines/
+
+# Local machine-specific config backups
+*.bak
+*.backup
+*.orig

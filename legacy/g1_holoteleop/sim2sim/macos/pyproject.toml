@@ -1,0 +1,23 @@
+[project]
+name = "gmt-sim2sim"
+version = "0.1.0"
+description = "Sim2sim runner — wraps sim2real for cross-platform use"
+requires-python = ">=3.10,<3.11"
+dependencies = [
+  "mujoco",
+  "mujoco-python-viewer",
+  "numpy",
+  "onnxruntime",
+  "pin>=3.9.0",
+  "pyyaml",
+  "pyzmq>=27.1.0",
+  "scipy",
+  "sshkeyboard",
+  "unitree-sdk2py",
+]
+
+[tool.uv.sources]
+unitree-sdk2py = { git = "https://github.com/EGalahad/unitree_sdk2_python.git" }
+
+[tool.uv]
+package = false
