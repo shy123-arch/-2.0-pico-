@@ -14,7 +14,7 @@
 X-Humanoid ROS 2 消息适配，以及可一键启动的本地 RViz 运动链路仿真；但天轶本体的电机 ID、URDF、底盘与
 夹爪话题必须在真机上核对后才能解除硬件锁。
 
-在 Ubuntu/ROS 2 环境中构建后，可直接运行：
+在 Ubuntu 22.04/ROS 2 Humble 环境中构建后，可直接运行：
 
 ```bash
 ros2 launch tianyi2_pico_teleop local_sim.launch.py

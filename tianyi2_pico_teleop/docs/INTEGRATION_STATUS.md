@@ -27,6 +27,11 @@ Updated: 2026-09-24
 - Linux/ROS 2 one-command local launch with mock PICO autostart;
 - RViz schematic visualization of the two commanded tool targets.
 
+The local simulation targets Ubuntu 22.04, ROS 2 Humble and Python 3.10. The
+Python and ROS interfaces used by the simulation are available in Humble. The
+hardware node remains intended for the robot's vendor-supported xos environment;
+the public X-Humanoid SDK currently documents Ubuntu 24.04 and ROS 2 Jazzy.
+
 The bundled visualization validates process startup, UDP transport, safety-state
 activation, anchor mapping and ROS topic flow. It is intentionally not a precise
 Tianyi kinematics/dynamics simulation because no verified Tianyi 2.0 URDF is

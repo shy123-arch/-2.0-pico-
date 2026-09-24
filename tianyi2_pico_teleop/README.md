@@ -68,18 +68,19 @@ pico_streamer --host <TIANYI_IP> --port 28810
 PICO 和机器人必须在同一可达网络。不要把 PICO App 的 PC Service 地址填成机器人
 地址；PICO App 仍连接运行 XRoboToolkit PC Service 的电脑。
 
-## 2. Linux 本地仿真
+## 2. Ubuntu 22.04 本地仿真
 
-推荐在 Ubuntu 24.04 + ROS 2 Jazzy 环境中先跑本地仿真。安装 ROS 2 后，确认具备
-`colcon`、`rviz2`、`geometry_msgs`、`visualization_msgs`：
+本地仿真目标环境是 Ubuntu 22.04 + ROS 2 Humble（Python 3.10）。先按 ROS 2
+官方说明安装 Humble Desktop，然后执行：
 
 ```bash
+source /opt/ros/humble/setup.bash
 mkdir -p ~/tianyi2_ws/src
 cd ~/tianyi2_ws/src
 git clone https://github.com/shy123-arch/-2.0-pico-.git tianyi2-pico-teleop
 cd ~/tianyi2_ws
 rosdep install --from-paths src/tianyi2-pico-teleop/tianyi2_pico_teleop \
-  --ignore-src -r -y
+  --ignore-src --rosdistro humble -r -y
 colcon build --symlink-install --packages-select tianyi2_pico_teleop
 source install/setup.bash
 ros2 launch tianyi2_pico_teleop local_sim.launch.py
@@ -100,6 +101,14 @@ ros2 topic echo /tianyi2_teleop/left_target
 PICO/UDP/状态机/锚点映射/ROS 话题链路；由于没有经过厂家确认的天轶 2.0 URDF，
 它不包含精确关节 IK、碰撞、重力或执行器动力学。取得真机 URDF 后，再接入
 Gazebo/Isaac Sim 或厂家仿真环境。
+
+### 22.04 与真机系统的边界
+
+本地 RViz 仿真和 PICO UDP 发送端支持 Ubuntu 22.04。公开的 X-Humanoid 真机 SDK
+目前标注的是 Ubuntu 24.04 + ROS 2 Jazzy，而且厂家消息包来自机器人自带的 `xos`
+工作空间。因此不要为了统一版本而修改机器人本体系统：22.04 电脑与机器人之间使用
+本项目的版本化 UDP 数据，不共享 ROS DDS；真正的 `robot_node` 应在机器人厂家支持的
+系统中编译运行。
 
 ## 3. 机器人侧编译
 
