@@ -23,7 +23,14 @@ Updated: 2026-09-24
 - joint limit, velocity and step clamping;
 - fail-closed YAML validation;
 - optional Pinocchio dual-arm IK;
-- ROS 2 X-Humanoid adapter and dry-run target topics.
+- ROS 2 X-Humanoid adapter and dry-run target topics;
+- Linux/ROS 2 one-command local launch with mock PICO autostart;
+- RViz schematic visualization of the two commanded tool targets.
+
+The bundled visualization validates process startup, UDP transport, safety-state
+activation, anchor mapping and ROS topic flow. It is intentionally not a precise
+Tianyi kinematics/dynamics simulation because no verified Tianyi 2.0 URDF is
+available in the supplied files or public SDK.
 
 ## Not yet hardware-verified
 
@@ -36,4 +43,3 @@ Updated: 2026-09-24
 
 The repository must not be described as “Tianyi real-robot verified” until these
 items are measured on the target unit and the checklist is signed off.
-

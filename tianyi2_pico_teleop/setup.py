@@ -15,6 +15,7 @@ setup(
         (f"share/{package_name}", ["package.xml"]),
         (f"share/{package_name}/config", glob("config/*.yaml")),
         (f"share/{package_name}/launch", glob("launch/*.launch.py")),
+        (f"share/{package_name}/rviz", glob("rviz/*.rviz")),
     ],
     install_requires=["setuptools", "numpy"],
     zip_safe=True,
@@ -28,6 +29,7 @@ setup(
             "robot_node = tianyi2_pico_teleop.ros_node:main",
             "inspect_robot_state = tianyi2_pico_teleop.diagnostics:main",
             "validate_config = tianyi2_pico_teleop.validate_config:main",
+            "sim_visualizer = tianyi2_pico_teleop.sim_visualizer:main",
         ]
     },
 )

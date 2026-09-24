@@ -1,6 +1,6 @@
 import unittest
 
-from tianyi2_pico_teleop.pico_streamer import packet_from_snapshot
+from tianyi2_pico_teleop.pico_streamer import _mock_snapshot, packet_from_snapshot
 
 
 class PicoStreamerTests(unittest.TestCase):
@@ -30,6 +30,14 @@ class PicoStreamerTests(unittest.TestCase):
         self.assertTrue(packet.buttons["right_key_two"])
         self.assertEqual(packet.values["right_grip"], 0.8)
         self.assertEqual(packet.values["left_axis_y"], -0.2)
+
+    def test_mock_can_generate_start_button_pulse(self):
+        idle = _mock_snapshot(0.0)
+        starting = _mock_snapshot(1.0, press_start=True)
+        idle_packet = packet_from_snapshot(idle, session_id="mock", sequence=0)
+        start_packet = packet_from_snapshot(starting, session_id="mock", sequence=1)
+        self.assertFalse(idle_packet.buttons["right_key_one"])
+        self.assertTrue(start_packet.buttons["right_key_one"])
 
 
 if __name__ == "__main__":

@@ -127,17 +127,20 @@ class LatestSnapshot:
             return self._snapshot, self._received
 
 
-def _mock_snapshot(t: float) -> dict[str, Any]:
-    x = 0.25 * math.sin(t)
+def _mock_snapshot(t: float, *, press_start: bool = False) -> dict[str, Any]:
+    """Create deterministic controller motion for local integration tests."""
+    x = 0.18 * math.sin(t)
+    z = 0.08 * math.sin(t * 0.5)
     return {
         "headset_pose": [0.0, 1.65, 0.0, 0.0, 0.0, 0.0, 1.0],
         "controllers": {
             "left": {
-                "pose": [-0.3 + x, 1.25, 0.35, 0.0, 0.0, 0.0, 1.0],
+                "pose": [-0.3 + x, 1.25, 0.35 + z, 0.0, 0.0, 0.0, 1.0],
                 "axis": [0.0, 0.0],
             },
             "right": {
-                "pose": [0.3 - x, 1.25, 0.35, 0.0, 0.0, 0.0, 1.0],
+                "pose": [0.3 - x, 1.25, 0.35 - z, 0.0, 0.0, 0.0, 1.0],
+                "primary_button": press_start,
                 "axis": [0.0, 0.0],
             },
         },
@@ -177,6 +180,7 @@ def run(args: argparse.Namespace) -> None:
     sent = 0
     dropped = 0
     next_tick = time.monotonic()
+    started_at = next_tick
     last_report = next_tick
     print(f"PICO streamer -> udp://{target[0]}:{target[1]} at {args.fps:g} Hz")
     try:
@@ -186,7 +190,13 @@ def run(args: argparse.Namespace) -> None:
                 stop.wait(next_tick - now)
                 continue
             next_tick = max(next_tick + period, now)
-            snapshot = _mock_snapshot(now) if args.mock else latest.get()[0]
+            if args.mock:
+                elapsed = now - started_at
+                # Delay the edge so the receiving ROS node has time to bind its UDP port.
+                press_start = args.mock_autostart and 1.0 <= elapsed < 1.5
+                snapshot = _mock_snapshot(elapsed, press_start=press_start)
+            else:
+                snapshot = latest.get()[0]
             if snapshot is None:
                 dropped += 1
                 continue
@@ -218,12 +228,19 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--port", type=int, default=28810)
     parser.add_argument("--fps", type=float, default=60.0)
     parser.add_argument("--mock", action="store_true")
+    parser.add_argument(
+        "--mock-autostart",
+        action="store_true",
+        help="pulse the PICO A button after one second (only with --mock)",
+    )
     parser.add_argument("--verbose", action="store_true")
     args = parser.parse_args()
     if args.port <= 0 or args.port > 65535:
         parser.error("--port must be in 1..65535")
     if args.fps <= 0.0:
         parser.error("--fps must be positive")
+    if args.mock_autostart and not args.mock:
+        parser.error("--mock-autostart requires --mock")
     return args
 
 
@@ -233,4 +250,3 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
-

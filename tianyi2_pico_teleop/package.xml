@@ -7,12 +7,16 @@
   <license>Proprietary</license>
   <buildtool_depend>ament_python</buildtool_depend>
   <exec_depend>rclpy</exec_depend>
+  <exec_depend>python3-numpy</exec_depend>
   <exec_depend>geometry_msgs</exec_depend>
   <exec_depend>std_msgs</exec_depend>
   <exec_depend>std_srvs</exec_depend>
-  <exec_depend>ros2_bridge_msgs</exec_depend>
+  <exec_depend>visualization_msgs</exec_depend>
+  <exec_depend>launch</exec_depend>
+  <exec_depend>launch_ros</exec_depend>
+  <exec_depend>rviz2</exec_depend>
+  <!-- ros2_bridge_msgs is loaded lazily in hardware mode from the vendor xos workspace. -->
   <export>
     <build_type>ament_python</build_type>
   </export>
 </package>
-

@@ -1,0 +1,47 @@
+{
+  "network": {"udp_bind_host": "127.0.0.1", "udp_port": 28810},
+  "safety": {
+    "dry_run": true,
+    "hardware_verified": false,
+    "packet_timeout_ms": 250,
+    "feedback_timeout_ms": 250,
+    "global_max_step_rad": 0.02
+  },
+  "ik": {
+    "urdf_path": "SIMULATION_DOES_NOT_USE_A_URDF",
+    "position_scale": 1.0,
+    "damping": 0.0001,
+    "iterations": 20
+  },
+  "robot": {
+    "arm_command_topic": "/arm/cmd",
+    "robot_state_topic": "/robot_state",
+    "control_rate_hz": 50,
+    "arm_control_mode": 0,
+    "command_speed_rad_s": 0.30,
+    "command_current_a": 5.0
+  },
+  "arms": {
+    "left": {
+      "end_effector_frame": "sim_left_tool",
+      "controller_to_tool": [0, 0, 0, 0, 0, 0, 1],
+      "joints": []
+    },
+    "right": {
+      "end_effector_frame": "sim_right_tool",
+      "controller_to_tool": [0, 0, 0, 0, 0, 0, 1],
+      "joints": []
+    }
+  },
+  "base": {
+    "enabled": false,
+    "topic": "/cmd_vel",
+    "max_linear_m_s": 0.20,
+    "max_angular_rad_s": 0.30
+  },
+  "grippers": {
+    "enabled": false,
+    "left_topic": "/left_gripper/command",
+    "right_topic": "/right_gripper/command"
+  }
+}
